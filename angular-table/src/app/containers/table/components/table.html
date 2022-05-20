@@ -1,0 +1,66 @@
+<div id="search-component">
+  <label for="search-box">Search</label>
+  <input #searchBox id="search-box"/>
+</div>
+
+<div class="winners_container">
+  <h1 class="title">Result</h1>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Tags</th>
+    </tr>
+    <tr>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+    </tr>
+    <tr>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+    </tr>
+    <tr>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+      <td>fdfdf</td>
+    </tr>
+  </table>
+</div>
+
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+  <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item first-item">
+    <a (click)="setPage(1)" class="page-link">First</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item previous-item">
+    <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+  </li>
+  <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item number-item">
+    <a (click)="setPage(page)" class="page-link">{{page}}</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item next-item">
+    <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+  </li>
+  <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item last-item">
+    <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+  </li>
+</ul>
+
+<!--<div id="search-component">-->
+<!--  <label for="search-box">Hero Search</label>-->
+<!--  <input #searchBox id="search-box" (input)="search(searchBox.value)" />-->
+
+<!--  <ul class="search-result">-->
+<!--    <li *ngFor="let hero of heroes$ | async" >-->
+<!--      <a routerLink="/detail/{{hero.id}}">-->
+<!--        {{hero.name}}-->
+<!--      </a>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
