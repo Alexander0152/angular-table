@@ -1,32 +1,28 @@
 import { Component } from '@angular/core';
-// import { select, Store } from '@ngrx/store';
-// import { AssessmentProgressStateModel } from '../store/state/assessment-progress.state';
-// import {
-//   getAssessments,
-//   getBusinessHours,
-//   getCachedFrontendParameters, getMetadata,
-//   getOrderHistory,
-// } from '../store/state/assessment-progress.action';
-// import { Observable } from 'rxjs';
-// import {
-//   assessmentData,
-//   businessHours,
-//   cachedFrontendParameters, metadata,
-//   orderHistory,
-// } from '../store/state/assessment-progress.selector';
+import {Item} from "../../../common/models/table.model";
+import {Observable} from "rxjs";
+import {select, Store} from "@ngrx/store";
+import {items} from "../store/state/table.selector";
+import {TableStateModel} from "../store/state/table.state";
+import {getItems} from "../store/state/table.action";
 
 @Component({
-  selector: 'c',
-  template: ` <app-table></app-table>`,
+  selector: 'app-table-smart',
+  template: ` <app-table
+    [items]="items$ | async"
+    (getItems)="onGetItems($event)"></app-table>`,
 })
 export class TableSmartComponent {
-  // cachedFrontendParameters$: Observable<FrontendParametersModel | null> =
-  //   this.store.pipe(select(cachedFrontendParameters));
+  items$: Observable<Item[] | null> = this.store.pipe(
+    select(items)
+  );
 
-  constructor() {}
-  // constructor(private store: Store<AssessmentProgressStateModel>) {}
+  constructor(private store: Store<TableStateModel>) {}
 
-  // onGetCachedFrontendParameters() {
-  //   this.store.dispatch(getCachedFrontendParameters());
-  // }
+  onGetItems(data: {
+    offset: number;
+    limit: number;
+  }) {
+    this.store.dispatch(getItems(data));
+  }
 }

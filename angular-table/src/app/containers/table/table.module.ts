@@ -1,15 +1,11 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { EffectsModule } from '@ngrx/effects';
-// import { StoreModule } from '@ngrx/store';
-// import { AssessmentProgressPresentationComponent } from './components/assessment-progress.presentation.component';
-// import { AssessmentProgressSmartComponent } from './components/assessment-progress.smart.component';
-// import { AssessmentProgressEffect } from './store/assessment-progress.effect';
-// import { assessmentProgressReducer } from './store/state/assessment-progress.reducer';
-// import { SharedModule } from '../../common/shared.module';
+import { StoreModule } from '@ngrx/store';
 import {TableSmartComponent} from "./components/table.smart.component";
 import {TablePresentationComponent} from "./components/table.presentation.component";
+import {EffectsModule} from "@ngrx/effects";
+import {TableEffect} from "./store/table.effect";
+import {tableReducer} from "./store/state/table.reduser";
 
 @NgModule({
   declarations: [
@@ -18,14 +14,13 @@ import {TablePresentationComponent} from "./components/table.presentation.compon
   ],
   imports: [
     CommonModule,
-    // FormsModule,
-    // EffectsModule.forFeature([AssessmentProgressEffect]),
-    // StoreModule.forFeature('assessmentProgress', assessmentProgressReducer),
-    // SharedModule
+    EffectsModule.forFeature([TableEffect]),
+    StoreModule.forFeature('tableReducer', tableReducer)
   ],
-  exports: [
-    TablePresentationComponent
-  ]
+    exports: [
+        TablePresentationComponent,
+        TableSmartComponent
+    ]
 })
-export class AssessmentProgressModule {
+export class TableModule {
 }

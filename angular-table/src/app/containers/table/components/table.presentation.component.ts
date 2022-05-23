@@ -9,8 +9,7 @@ import {
 } from '@angular/core';
 // @ts-ignore
 import paginate from "jw-paginate";
-
-// import { CommonService } from '../../../common/services/common.service';
+import {Item} from "../../../common/models/table.model";
 
 @Component({
   selector: 'app-table',
@@ -19,45 +18,29 @@ import paginate from "jw-paginate";
 })
 export class TablePresentationComponent
   implements OnInit {
-  @Input() items: Array<any> = [1,2,3,4,5,6,7,8,9,10];
-  @Output() changePage = new EventEmitter<any>(true);
-  @Input() initialPage = 1;
-  @Input() pageSize = 10;
-  @Input() maxPages = 10;
-
-  pages: number = 10;
-
-  constructor(
-    // @Inject('accountService') private accountService: any,
-    // private notificationsService: NotificationsService,
-  ) {
-
-  }
-
-  pager: any = {};
-
   ngOnInit() {
-    // set page if items array isn't empty
-    if (this.items && this.items.length) {
-      this.setPage(this.initialPage);
-    }
+    this.handleGetItems({offset: 1, limit: 10});
   }
 
-  ngOnChanges(changes: any) {
-    // reset page if items array has changed
-    if (changes.items.currentValue !== changes.items.previousValue) {
-      this.setPage(this.initialPage);
-    }
+  @Input()
+  set items(data: Item[] | null) {
+    if (!data) return;
+
+    this._items = data;
   }
 
-  setPage(page: number) {
-    // get new pager object for specified page
-    this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages);
+  @Output()
+  getItems: EventEmitter<any> = new EventEmitter();
 
-    // get new page of items from items array
-    var pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  _items: Item[] | any;
 
-    // call change page function in parent component
-    this.changePage.emit(pageOfItems);
+  constructor() {
+  }
+
+  handleGetItems(data: {
+    offset: number;
+    limit: number;
+  }) {
+    // this.getItems.emit(data);
   }
 }
