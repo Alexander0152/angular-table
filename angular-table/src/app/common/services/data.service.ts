@@ -12,7 +12,6 @@ export class DataService {
   }
 
   getItems(term: string, offset: number, limit: number): Observable<Object> {
-    console.log(limit)
     const itemsList: any = data.items;
 
     const totalNumber = itemsList.length;
