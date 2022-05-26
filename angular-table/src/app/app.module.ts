@@ -1,17 +1,13 @@
-import {Injector, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {TableModule} from "./containers/table/table.module";
-import {EffectsModule} from '@ngrx/effects';
-import {AppEffect} from './store/app.effect';
 import {StoreModule} from "@ngrx/store";
+import {EffectsModule} from '@ngrx/effects';
 import {appReducer} from "./store/state/app.reducer";
-
-export function $state($injector: Injector) {
-  return $injector.get('$state');
-}
+import {AppEffect} from './store/app.effect';
 
 @NgModule({
   declarations: [
@@ -21,10 +17,10 @@ export function $state($injector: Injector) {
     BrowserModule,
     AppRoutingModule,
     TableModule,
-    EffectsModule.forRoot([AppEffect]),
     StoreModule.forRoot({app: appReducer}),
+    EffectsModule.forRoot([AppEffect])
   ],
-  providers: [{provide: '$state', deps: ['$injector'], useFactory: $state},],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

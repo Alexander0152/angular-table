@@ -1,8 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 export const getTitle = createAction(
-  '[App] Get title',
-  props<{ title: string }>()
+  '[App] Get title'
 );
 
 export const setTitle = createAction(

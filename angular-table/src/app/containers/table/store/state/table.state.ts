@@ -5,5 +5,8 @@ export interface TableStateModel {
 }
 
 export interface TableState {
-  items: Item[] | null;
+  table: {
+    items: Item[] | null,
+    totalNumber: number | null;
+  };
 }

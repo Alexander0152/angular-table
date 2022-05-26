@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Item} from "./common/models/table.model";
 
 @Component({
   selector: 'app-root',

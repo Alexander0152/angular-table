@@ -6,6 +6,8 @@ import {TablePresentationComponent} from "./components/table.presentation.compon
 import {EffectsModule} from "@ngrx/effects";
 import {TableEffect} from "./store/table.effect";
 import {tableReducer} from "./store/state/table.reduser";
+import {FormsModule} from "@angular/forms";
+import {JwPaginationModule} from "jw-angular-pagination";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import {tableReducer} from "./store/state/table.reduser";
   imports: [
     CommonModule,
     EffectsModule.forFeature([TableEffect]),
-    StoreModule.forFeature('tableReducer', tableReducer)
+    StoreModule.forFeature('table', tableReducer),
+    FormsModule,
+    JwPaginationModule
   ],
     exports: [
         TablePresentationComponent,

@@ -11,7 +11,14 @@ export const tableSelector = (
 export const items = createSelector(
   tableSelector,
   (state: TableState) => {
-    return state.items;
+    return state.table.items;
+  }
+);
+
+export const totalNumber = createSelector(
+  tableSelector,
+  (state: TableState) => {
+    return state.table.totalNumber;
   }
 );
 

@@ -1,9 +1,10 @@
-import {Inject, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {getItems, setItems} from "./state/table.action";
+import {getTable, setTable} from "./state/table.action";
 import {DataService} from "../../../common/services/data.service";
+import {GetItemsModel} from "./model/table.mode";
 
 @Injectable()
 export class TableEffect {
@@ -14,26 +15,21 @@ export class TableEffect {
   }
 
   getItems$ = createEffect(() =>
-    // @ts-ignore
     this.actions$.pipe(
-      ofType(getItems.type),
+      ofType(getTable.type),
       switchMap(
-        (data: {
-          offset: number;
-          limit: number;
-        }) =>
+        (data: GetItemsModel) =>
           this.dataService
-            .getItems(data.offset, data.limit)
+            .getItems(data.term, data.offset, data.limit)
             .pipe(
-              map((items: any) => {
-                setItems({items});
-                console.log(items);
-              }),
-              catchError((error: any) =>
-                of(alert("Error"))
+              map((table: any) => {
+                  return setTable({items: table.items, totalNumber: table.totalNumber});
+                },
+                catchError((error: any) =>
+                  of(console.log('Error'))
+                )
               )
             )
-      )
-    )
-  );
+      ))
+    );
 }

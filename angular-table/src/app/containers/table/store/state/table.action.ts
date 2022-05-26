@@ -1,15 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import {Item} from "../../../../common/models/table.model";
 
-export const getItems = createAction(
+export const getTable = createAction(
   '[Table] Get items',
   props<{
+    term: string,
     offset: number;
     limit: number;
   }>()
 );
 
-export const setItems = createAction(
+export const setTable = createAction(
   '[Table] Set items',
-  props<{ items: Item[] }>()
+  props<{ items: Item[] , totalNumber: number}>()
 );

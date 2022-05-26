@@ -1,17 +1,20 @@
-import { createReducer, on } from '@ngrx/store';
-import {setItems} from "./table.action";
+import {createReducer, on} from '@ngrx/store';
+import {setTable} from "./table.action";
 import {TableState} from "./table.state";
 
 export const initialState: Readonly<TableState> = {
-  items: null,
+  table: {
+    items: null,
+    totalNumber: null
+  }
 };
 
 const _tableReducer = createReducer(
   initialState,
-  on(setItems, (state, { items }) => {
+  on(setTable, (state, { items, totalNumber } ) => {
     return {
       ...state,
-      items: items,
+      table: {items: items, totalNumber: totalNumber}
     };
   })
 );
